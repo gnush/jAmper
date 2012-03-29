@@ -1,6 +1,7 @@
 package audio.interfaces;
 
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 import org.gstreamer.ClockTime;
 
@@ -41,6 +42,6 @@ public interface IAudioController {
 	public void addTrack(IAudio track, int pos);
 	public IAudioList getTracks();
 	
-	public boolean seek(long pos);
+	public boolean seek(long pos, TimeUnit t);
 	public boolean seek(ClockTime pos);
 }

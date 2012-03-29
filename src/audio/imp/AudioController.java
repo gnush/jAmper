@@ -2,6 +2,7 @@ package audio.imp;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 //import javax.swing.SwingUtilities;
 
@@ -222,5 +223,15 @@ public class AudioController implements IAudioController{
 	@Override
 	public void addTrack(IAudio track, int pos) {
 		tracks.addTrack(track, pos);	
+	}
+	
+	@Override
+	public boolean seek(long pos, TimeUnit t) {
+		return playbin.seek(pos, t);
+	}
+	
+	@Override
+	public boolean seek(ClockTime pos) {
+		return playbin.seek(pos);
 	}
 }
