@@ -196,7 +196,7 @@ public class AudioController implements IAudioController{
 	}
 	
 	@Override
-	public double getVolumePercent() {
+	public int getVolumePercent() {
 		return playbin.getVolumePercent();
 	}
 	
@@ -233,5 +233,10 @@ public class AudioController implements IAudioController{
 	@Override
 	public boolean seek(ClockTime pos) {
 		return playbin.seek(pos);
+	}
+	
+	@Override
+	public boolean isPlaying() {
+		return playbin.isPlaying();
 	}
 }

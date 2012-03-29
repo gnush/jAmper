@@ -34,7 +34,7 @@ public interface IAudioController {
 	 */
 	public void volumeDown();
 	public double getVolume();
-	public double getVolumePercent();
+	public int getVolumePercent();
 	public ClockTime getLength();
 	public ClockTime getCurrentPosition();
 	
@@ -44,4 +44,5 @@ public interface IAudioController {
 	
 	public boolean seek(long pos, TimeUnit t);
 	public boolean seek(ClockTime pos);
+	public boolean isPlaying();
 }
