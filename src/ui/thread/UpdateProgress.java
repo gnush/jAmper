@@ -15,7 +15,7 @@ public class UpdateProgress extends Thread{
 	
 	@Override
 	public void run() {
-		while(progress.getValue() != ctrl.getLength().toSeconds() /*&& ctrl.isPlaying()*/){
+		while(progress.getValue() != ctrl.getLength().toSeconds() && ctrl.isPlaying()){
 			progress.setValue((int) ctrl.getCurrentPosition().toSeconds());
 			
 			try {

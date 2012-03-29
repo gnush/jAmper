@@ -85,22 +85,11 @@ public class AudioController implements IAudioController{
 			return;
 		
 		playbin.setState(State.PLAYING);
-		
-//		SwingUtilities.invokeLater(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				Gst.main();
-//			}
-//		});
-		
 	}
 	
 	@Override
 	public void stop() {
 		playbin.setState(State.NULL);
-//		Gst.deinit();
-//		Gst.quit();
 	}
 
 	@Override
@@ -184,7 +173,11 @@ public class AudioController implements IAudioController{
         playbin.getBus().connect(new Bus.EOS() {
             public void endOfStream(GstObject source) {
                 System.out.println("Finished playing file");
-                Gst.quit();
+                try {
+					next();
+				} catch (URISyntaxException e) {
+					e.printStackTrace();
+				}
             }
         });
         
@@ -194,6 +187,7 @@ public class AudioController implements IAudioController{
                 Gst.quit();
             }
         });
+        
         playbin.getBus().connect(new Bus.STATE_CHANGED() {
             public void stateChanged(GstObject source, State old, State current, State pending) {
                 if (source == playbin) {
