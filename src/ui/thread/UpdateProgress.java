@@ -17,6 +17,7 @@ public class UpdateProgress extends Thread{
 	public void run() {
 		while(progress.getValue() != ctrl.getLength().toSeconds() && ctrl.isPlaying()){
 			progress.setValue((int) ctrl.getCurrentPosition().toSeconds());
+			progress.setToolTipText(ctrl.getCurrentPosition().toString());
 			
 			try {
 				Thread.sleep(1000);
