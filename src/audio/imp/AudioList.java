@@ -51,5 +51,9 @@ public class AudioList implements IAudioList{
 	public IAudio setTrack(IAudio track, int pos) {
 		return tracks.set(pos, track);
 	}
-
+	
+	@Override
+	public int numberOfTracks() {
+		return this.tracks.size();
+	}
 }

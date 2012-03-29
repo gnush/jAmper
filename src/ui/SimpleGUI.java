@@ -19,7 +19,7 @@ import audio.imp.AudioController;
 import audio.interfaces.IAudio;
 import audio.interfaces.IAudioController;
 
-public class SimpleGUI {
+public class SimpleGUI{
 	private JFrame f;
 	private JPanel buttonPanel;
 	private JPanel statusPanel;
@@ -61,7 +61,7 @@ public class SimpleGUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.pause();
 			}
 		});
 		
@@ -69,7 +69,7 @@ public class SimpleGUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.stop();
 			}
 		});
 		
@@ -77,7 +77,12 @@ public class SimpleGUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					controller.prev();
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -85,7 +90,12 @@ public class SimpleGUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					controller.next();
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

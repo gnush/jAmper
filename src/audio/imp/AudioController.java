@@ -3,6 +3,8 @@ package audio.imp;
 import java.net.URISyntaxException;
 import java.util.List;
 
+//import javax.swing.SwingUtilities;
+
 import org.gstreamer.Bus;
 import org.gstreamer.ClockTime;
 import org.gstreamer.ElementFactory;
@@ -110,6 +112,7 @@ public class AudioController implements IAudioController{
 	@Override
 	public void next() throws URISyntaxException {
 		currentPosition++;
+		stop();
 		play();
 	}
 
@@ -120,6 +123,9 @@ public class AudioController implements IAudioController{
 
 	@Override
 	public void play() throws URISyntaxException {
+		if(currentPosition < 0)
+			currentPosition += tracks.numberOfTracks();
+		
 		if(playbin.getState().equals(State.PAUSED)){
 			playbin.setState(State.PLAYING);
 			return;
@@ -128,7 +134,7 @@ public class AudioController implements IAudioController{
 		if(!Gst.isInitialized())
 			Gst.init();
 		
-		IAudio track = tracks.getTrack(currentPosition); 
+		IAudio track = tracks.getTrack(currentPosition % tracks.numberOfTracks()); 
 		
 		if(track.isFile())
 			playbin.setInputFile(track.getResource().getFile());
@@ -138,19 +144,28 @@ public class AudioController implements IAudioController{
 			return;
 		
 		playbin.setState(State.PLAYING);
-		Gst.main();
+		
+//		SwingUtilities.invokeLater(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				Gst.main();
+//			}
+//		});
+		
 	}
 	
 	@Override
 	public void stop() {
 		playbin.setState(State.NULL);
-		Gst.deinit();
-		Gst.quit();
+//		Gst.deinit();
+//		Gst.quit();
 	}
 
 	@Override
 	public void prev() throws URISyntaxException {
 		currentPosition--;
+		stop();
 		play();
 	}
 

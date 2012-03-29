@@ -40,4 +40,6 @@ public interface IAudioList {
 	 * @return true if successful
 	 */
 	public IAudio setTrack(IAudio track, int pos);
+	
+	public int numberOfTracks();
 }
