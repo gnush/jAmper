@@ -29,27 +29,7 @@ public class AudioController implements IAudioController{
 		playbin.setVideoSink(ElementFactory.make("fakesink", "videosink"));
 		this.tracks = new AudioList();
 		currentPosition = 0;
-		
-        playbin.getBus().connect(new Bus.EOS() {
-            public void endOfStream(GstObject source) {
-                System.out.println("Finished playing file");
-                Gst.quit();
-            }
-        });
-        
-        playbin.getBus().connect(new Bus.ERROR() {
-            public void errorMessage(GstObject source, int code, String message) {
-                System.out.println("Error occurred: " + message);
-                Gst.quit();
-            }
-        });
-        playbin.getBus().connect(new Bus.STATE_CHANGED() {
-            public void stateChanged(GstObject source, State old, State current, State pending) {
-                if (source == playbin) {
-                    System.out.println("Pipeline state changed from " + old + " to " + current);
-                }
-            }
-        });
+		this.registerBus();
 	}
 	
 	public AudioController(String[] args){
@@ -58,27 +38,7 @@ public class AudioController implements IAudioController{
 		playbin.setVideoSink(ElementFactory.make("fakesink", "videosink"));
 		tracks = new AudioList();
 		currentPosition = 0;
-		
-		playbin.getBus().connect(new Bus.EOS() {
-            public void endOfStream(GstObject source) {
-                System.out.println("Finished playing file");
-                Gst.quit();
-            }
-        });
-        
-        playbin.getBus().connect(new Bus.ERROR() {
-            public void errorMessage(GstObject source, int code, String message) {
-                System.out.println("Error occurred: " + message);
-                Gst.quit();
-            }
-        });
-        playbin.getBus().connect(new Bus.STATE_CHANGED() {
-            public void stateChanged(GstObject source, State old, State current, State pending) {
-                if (source == playbin) {
-                    System.out.println("Pipeline state changed from " + old + " to " + current);
-                }
-            }
-        });
+		this.registerBus();
 	}
 	
 	public AudioController(String[] args, List<IAudio> tracks){
@@ -87,27 +47,7 @@ public class AudioController implements IAudioController{
 		playbin.setVideoSink(ElementFactory.make("fakesink", "videosink"));
 		this.tracks = new AudioList(tracks);
 		currentPosition = 0;
-		
-		playbin.getBus().connect(new Bus.EOS() {
-            public void endOfStream(GstObject source) {
-                System.out.println("Finished playing file");
-                Gst.quit();
-            }
-        });
-        
-        playbin.getBus().connect(new Bus.ERROR() {
-            public void errorMessage(GstObject source, int code, String message) {
-                System.out.println("Error occurred: " + message);
-                Gst.quit();
-            }
-        });
-        playbin.getBus().connect(new Bus.STATE_CHANGED() {
-            public void stateChanged(GstObject source, State old, State current, State pending) {
-                if (source == playbin) {
-                    System.out.println("Pipeline state changed from " + old + " to " + current);
-                }
-            }
-        });
+		this.registerBus();
 	}
 
 	@Override
@@ -238,5 +178,28 @@ public class AudioController implements IAudioController{
 	@Override
 	public boolean isPlaying() {
 		return playbin.isPlaying();
+	}
+	
+	private void registerBus(){
+        playbin.getBus().connect(new Bus.EOS() {
+            public void endOfStream(GstObject source) {
+                System.out.println("Finished playing file");
+                Gst.quit();
+            }
+        });
+        
+        playbin.getBus().connect(new Bus.ERROR() {
+            public void errorMessage(GstObject source, int code, String message) {
+                System.out.println("Error occurred: " + message);
+                Gst.quit();
+            }
+        });
+        playbin.getBus().connect(new Bus.STATE_CHANGED() {
+            public void stateChanged(GstObject source, State old, State current, State pending) {
+                if (source == playbin) {
+                    System.out.println("Pipeline state changed from " + old + " to " + current);
+                }
+            }
+        });
 	}
 }
