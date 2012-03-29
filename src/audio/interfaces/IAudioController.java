@@ -40,4 +40,7 @@ public interface IAudioController {
 	public boolean addTrack(IAudio track);
 	public void addTrack(IAudio track, int pos);
 	public IAudioList getTracks();
+	
+	public boolean seek(long pos);
+	public boolean seek(ClockTime pos);
 }
